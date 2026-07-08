@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>加入活動 - VTC AI Training</title>
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+.card { background: white; border-radius: 24px; padding: 48px 40px; width: 90%; max-width: 420px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+.logo { font-size: 56px; margin-bottom: 12px; }
+h1 { color: #333; font-size: 26px; margin-bottom: 6px; }
+.subtitle { color: #888; margin-bottom: 32px; font-size: 15px; }
+input { width: 100%; padding: 16px 18px; border: 2px solid #e0e0e0; border-radius: 14px; font-size: 18px; outline: none; transition: border-color 0.3s; margin-bottom: 16px; }
+input:focus { border-color: #667eea; }
+button { width: 100%; padding: 16px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; border-radius: 14px; font-size: 18px; font-weight: bold; cursor: pointer; transition: opacity 0.3s; }
+button:hover { opacity: 0.88; }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+.msg { margin-top: 16px; font-size: 14px; color: #999; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">🤖</div>
+  <h1>VTC AI Training</h1>
+  <p class="subtitle">輸入你的名字加入互動活動</p>
+  <input type="text" id="nameInput" placeholder="你的名字..." maxlength="20" />
+  <button id="joinBtn" onclick="joinSession()">加入活動</button>
+  <p class="msg" id="msg"></p>
+</div>
+<script>
+function joinSession() {
+  const name = document.getElementById('nameInput').value.trim();
+  if (!name) { document.getElementById('msg').textContent = '請輸入名字'; return; }
+  document.getElementById('joinBtn').disabled = true;
+  document.getElementById('msg').textContent = '連接中...';
+  localStorage.setItem('participantName', name);
+  window.location.href = '/participant';
+}
+document.getElementById('nameInput').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') joinSession();
+});
+</script>
+</body>
+</html>
